@@ -1,0 +1,70 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  5 14:45:40 2021
+
+@author: Ömer Karagöz
+"""
+
+# %% dictinoary sözlük
+"""
+-Veri bilimini pandas kütüphanesi temelini oluşturur.
+-Temel veri tipidir.
+-Yapay zeka da bir çok alanda kullanılır
+-Değer çiftlerinden oluşur
+-{" anahtar ": değer}
+"""
+dictinoary = {"Adana"  : 1,
+              "Adıyaman": 2,
+              "Niğde"   : 51}
+print(dictinoary)
+print(dictinoary["Adana"])
+
+#anahtarlar
+print(dictinoary.keys())
+
+#değerler
+print(dictinoary.values(0))
+
+
+# %% İf-else Statment
+"""
+-Bir bool ifadesine göre doğru ya da yanlış olarak değerlendirmesine 
+bağlı olarak farklı hesaplamalar veya eylemler gerçekleştiren bir ifadedir.
+"""
+bool1 = True
+
+#büyük küçük sayi karşılaştırılması
+sayi1 = 12.0
+sayi2 = 20.0
+sayi3 = 12.0
+
+if sayi1<sayi2:
+    print("Sayı 1 küçüktür sayı 2 'den.")
+
+elif sayi1>sayi2:
+    print("Sayı 2 küçüktür sayı 1'den")
+
+elif sayi1==sayi3:
+    print("sayılar eşittir")
+else:
+    pass
+
+liste = [1,5,6,7,9]
+deger = 32
+
+if deger in liste:
+    print("{} değeri listesinin içiresindedir.".format(deger))
+else:
+    print("{} değeri listesinin içiresinde değildir.".format(deger))
+    deger=5
+    
+dictinoary = {"Muz":"1kg","Elma":"1kg","Çilek":"1kg","Domates":"1kg"}
+
+keys = dictinoary.keys()
+deger ="Muz"
+
+
+if deger in keys:
+    print("Evet \n Kilosu : {}".format(dictinoary["Muz"]))
+else:
+    print("Hayır")

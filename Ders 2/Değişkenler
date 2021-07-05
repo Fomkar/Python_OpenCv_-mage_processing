@@ -1,0 +1,69 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  5 12:09:26 2021
+
+@author: Ömer Karagöz
+"""
+
+# %% Python Temel Söz dizimi
+#büyük veya küçük harf
+
+temel = 6
+
+"""
+Ömer Karagöz 
+Elektronik-Elektronik Mühendisi
+Gitek Vision 
+"""
+#Girinti 
+
+if 5<10:
+    print("evet doğru")
+else:
+    print("Hayır yanlış")
+
+#anahtar Kelime
+de = 4
+# def = 4
+
+#Sayılı Değişken
+
+sayi1=5
+sayi2 =7
+
+# %% Liste
+"""
+-Bileşik veri türüdür ve çok yönlüdür.
+- [ 1, "a" , 1.0]
+-farklı veri tiplerini içerisinde barındırabilir.
+"""
+liste = [1,2,3,4,5]
+print(type(liste))
+
+hafta = ["pazartesi","salı","çarşamba","perşembe","cuma","cumartesi","pazar"]
+print(hafta[0])
+
+print(hafta[5])
+
+print(len(hafta))
+
+a = len(hafta)
+
+print(hafta[0:a+1])
+
+sayi_listesi = [1,2,3,4,5,6]
+print(sayi_listesi)
+
+sayi_listesi.append(7)#listeye eleman ekleme
+
+sayi_listesi.remove(4)#listeden eleman çıkar
+
+#listeyi ters çevir
+sayi_listesi.reverse()
+print(sayi_listesi)
+
+#Listeyi sırala
+sayi_listesi1=[5,78,9,6,56,2,788,1]
+
+sayi_listesi1.sort()
+print(sayi_listesi1)

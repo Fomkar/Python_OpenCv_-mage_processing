@@ -1,2 +1,2 @@
-# Python_OpenCv_-mage_processing
+# Python_OpenCv_-image_processing
 Python_OpenCv + Spyder İmage Processing

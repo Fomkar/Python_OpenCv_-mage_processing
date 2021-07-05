@@ -1,0 +1,41 @@
+@author: Ömer Karagöz
+"""
+
+# %% Spyder tanımı
+#Ders1 ,Console Kullanımı
+print("Hello Word")
+
+# %% Değişkenler
+
+tamsayi = 10
+
+ondalik = 24.6
+
+print(tamsayi)
+print(ondalik)
+
+# 4 işlem Özellikleri
+
+pi = 3.14
+katsayi = 2
+toplam = pi + katsayi
+fark = pi - 1
+carp= pi * katsayi
+bolme  = pi / katsayi
+
+print("Toplam : ",toplam)
+print("Toplam {}  ve fark {}".format(toplam, fark))
+print("Çarpma : %.1f, bölme : %.4f" % (carp, bolme))
+
+# değişkenler arası dönüşüm
+carpım = int(carp)
+print(carpım)
+
+#String karakter dizini
+
+string = "Merhaba Dünya"
+print(string)
+
+resim_yolu = "Veri" + "\\" +"img" +".png"
+print(resim_yolu)
+

@@ -1,0 +1,71 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  5 15:50:37 2021
+
+@author: Ömer Karagöz
+"""
+
+# %% Fonksiyonlar
+"""
+-Karmaşık işlemleri toplar ve tek  adımda yapmamızı sağlar
+-şablon
+-düzenlenme 
+"""
+
+#kullanıcı tarafından tanımlanan fonksiyonlar
+def daireAlan(r):
+    """
+   parametres 
+   ------------
+   r: int - daire yarıçapı.
+   
+   Returns
+   ---------
+   daire_alani : float -dairelanı
+    """
+    pi = 3.14
+    daire_alani = pi*(r**2)
+    print(daire_alani)
+    return daire_alani
+
+
+daireAlan(3)
+
+def daireCevre(r,pi=3.14):
+    daire_cevre = 2* pi*r
+    print(daire_cevre)
+    return daire_cevre
+    
+daireCevre(5)
+#global değişkenler fonksiyonların içinde ve dışında tanımlanabilir
+k =5
+def katsayi():
+    global k
+    print(k*k)
+katsayi()
+
+# Boş fonskiyon
+
+def bos():
+    pass
+#built in fonk
+liste = [1,0,3,4]
+print(len(liste))
+print(str(liste))
+print(max(liste))
+print(min(liste))
+
+# Lamda Fonk.
+
+"""
+-ileri seviyeli
+-küçük ve anonim bir işlemdir
+"""
+def carpma(x,y,z):
+    return x*y*z
+sonuc = carpma(2,3,7)
+print(sonuc)
+
+fonk_carp = lambda x,y,z : x*y*z
+sonuc2 = fonk_carp(5, 6, 4)
+print(sonuc2)

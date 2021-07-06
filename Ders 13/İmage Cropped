@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jul  6 15:31:06 2021
+
+@author: Ömer Karagöz
+"""
+# İmage cropped from Center 0f image
+import cv2
+
+img = cv2.imread("adsiz.jpg")
+y,x,a =img.shape
+x=x/2
+y=y/2
+print("Resimin Boyutlar : {} x {}".format(x, y))
+cv2.imshow("Orijinal",img)
+imgResized = cv2.resize(img,(500,500))
+print("Resized Img Shape : ",imgResized.shape)
+cv2.imshow("Img Resized",imgResized)
+
+#kırp
+imgCropped = img[300:1000,300:1000]
+# cv2.imshow("Kirpik Resim",imgCropped)
+
+w=700
+h=700
+y=y-w/2
+x=x-h/2
+crop_img = img[int(y):int(y+h), int(x):int(x+w)]
+cv2.imshow("Cropped İmage of Center",crop_img)
+

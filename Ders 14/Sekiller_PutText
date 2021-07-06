@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jul  6 16:35:56 2021
+
+@author: Ömer Karagöz
+"""
+# Şekiller Metin 
+import cv2
+import numpy as np
+
+#resim oluştur
+image = np.zeros((512,512,3),np.uint8)
+print(image.shape)
+
+cv2.imshow("Siyah Resim",image)
+
+x=int(image.shape[0])
+
+y=int(image.shape[1])
+#çizgi -line 
+cv2.line(image, (0,0),(x,y),(0,255,0),2)
+cv2.line(image,(x,0),(0,y),(0,255,0,),2)
+#dikdörtgen
+cv2.rectangle(image, (0,0), (x-1,y-1), (255,50,50),3)
+
+#Çember
+cv2.circle(image, (int(x-x/2),int(y-y/2)), int(x/4), (0,0,255),5)
+
+#Metin 
+cv2.putText(image, "Sekiller", (int(x-x/2-50),int(y-y/2-50)), cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255))
+cv2.imshow("Siyah Resim",image)
+cv2.imwrite("Sekiller.jpg", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+

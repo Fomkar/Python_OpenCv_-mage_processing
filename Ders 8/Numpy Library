@@ -1,0 +1,123 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul  5 16:52:25 2021
+
+@author: Ömer Karagöz
+"""
+
+#%% Numpy kütüphanesi 
+"""
+-Çok büyük matrisler hesapla kolaylığı sağlar
+"""
+
+import numpy as np
+
+# 1*15boyutunda bir array-dizi
+dizi =np.array([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+print(dizi)
+
+print(dizi.shape)
+
+dizi2 = dizi.reshape(3,5)
+
+print("Şekil :",dizi2.shape)
+print("Boyut :",dizi2.ndim)
+print("Veri Tipi :",dizi2.dtype.name)
+print("Boy :",dizi2.size)
+
+# array type
+print("Type :",type(dizi2))
+
+# 2 boyutlu dizi oluşturma
+dizi2D = np.array([[1,2,3,4],[9,8,7,0],[0,6,5,4]])
+print(dizi2D)
+
+# sıfılardan oluşan bir array
+sifir_dizi = np.zeros((3,4))
+print(sifir_dizi)
+
+#birlerden oluşan matris
+bir_dizi = np.ones((2,2))
+print(bir_dizi)
+
+#bos dizi
+bos_dizi = np.empty((3,3))
+print(bos_dizi)
+
+#arrange (x,y,basamak)
+dizi_aralik = np.arange(10,50,5)
+print(dizi_aralik)
+
+#LineSpace (x,y,basamak)
+dizi_boluk = np.linspace(10,20,5)
+print(dizi_boluk)
+
+
+# float array
+float_array = np.float16([[1,2],[5,4]])
+print(float_array)
+
+# Matematiksel İşlemler 
+mata = np.array([1,2,3])
+matb = np.array([4,5,6])
+
+print("Toplamları :" ,mata+matb)
+print("A Matrisin karesi :",mata**2)
+print("Matrislerin farkı :",matb-mata)
+print("B Matrisin karesi {}".format(matb**2))
+
+#Dizinin elemanları toplama
+print(mata)
+print("A matrisin toplamı : {} \n".format(np.sum(mata)))
+
+#Dizinin Max değeri
+print(matb)
+print("B matrisinin maximum değeri :",np.max(matb),"\n")
+
+#Dizinin Min Değeri
+print(mata)
+print("A matrisinin Minimum değeri ",np.min(mata),"\n")
+
+#Dizinin ortalaması
+print(matb)
+print("B matrisinin ortalamsı :",int(np.mean(matb)),"\n")
+
+#Dizinin media(orta değer) ortalama
+print(mata)
+print("A matrisinin orta degeri : ",np.median(mata),"\n")
+
+#Rastgele(random sayı üretme) [0,1] sürekli dağılım 3x3
+rastgele_dizi = np.random.random((3,3))
+print(rastgele_dizi)
+
+# indeks
+
+dizi3= np.array([1,2,3,4,5,6,7])
+print("Dizinin 1.elemanı  : {}".format(dizi3[0]))
+
+#dizinin ilk 4 elemanı 
+print("Dizinin ilk 4 elemanı : {}".format(dizi3[0:4]))
+
+#dizinin Tersini almak
+print("Dizinin tersi : {}".format(dizi3[::-1]))
+
+#
+dizi2D = np.array([[1,10,9,8,7],[6,5,4,3,2]])
+print(dizi2D)
+
+#dizinin 1.satır ve 1.sutunda bulunan elemanı almak
+print(dizi2D[0,4])
+
+print(dizi2D[:,2])
+
+
+dizi2a = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(dizi2a)
+
+#vektör haline getirme  
+vektor = dizi2a.ravel()
+print(vektor)
+
+max_index = vektor.argmax()
+print(max_index)
+print(vektor.max())

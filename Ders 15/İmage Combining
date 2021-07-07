@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 08:34:35 2021
+
+@author: Ömer Karagöz
+Topic : Two images joining or Combining ( Horizontal and Vertical)
+"""
+# Resimlerin Birleştirilmesi
+
+import cv2
+import numpy as np
+img = cv2.imread("resim.jpg") 
+
+cv2.imshow("Orijinal",img)
+
+#yatay
+hor = np.hstack((img,img))
+cv2.imshow("Horizontal",hor)
+
+#dikey
+ver = np.vstack((img,img))
+cv2.imshow("Vertical",ver)

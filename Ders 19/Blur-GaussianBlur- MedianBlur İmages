@@ -1,0 +1,66 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 11:33:09 2021
+
+@author: Ömer Karagöz
+-> Görüntüyü Blunıklaştırma - How to do blur to image
+"""
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+import warnings
+warnings.filterwarnings("ignore")
+
+image = cv2.imread("image.bmp")
+cv2.imshow("Orginal Image",image)
+image_plot = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.figure()
+plt.imshow(image_plot)
+plt.title("Orijinal")
+plt.show()
+
+"""
+ortalma bulanıklaştırma
+"""
+blu_img = cv2.blur(image,(7,7))
+
+cv2.imshow("Blur Image",blu_img)
+
+# Gausian Blur
+
+gausblur_img = cv2.GaussianBlur(image, (5,5), 7)
+
+cv2.imshow("Gaus Blur", gausblur_img)
+
+
+# Median Blur
+
+medianblur_img= cv2.medianBlur(image, 9)
+
+cv2.imshow("Median Blur",medianblur_img)
+
+def gaussianNoise(image):
+    row,col,ch = image.shape
+    mean = 0
+    var = 0.05
+    sigma = var **0.5
+    
+    gauss = np.random.normal(mean, sigma, (row,col,ch))
+    gauss = gauss.reshape(row,col,ch)
+    noisy = image + gauss
+    
+    return noisy
+
+image = cv2.imread("image.bmp")
+cv2.imshow("Orginal Image",image)
+image = image/255
+noisy_image=gaussianNoise(image)
+
+gausblur_img = cv2.GaussianBlur(noisy_image, (5,5), 7)
+
+cv2.imshow("Gaus Blur", gausblur_img)
+cv2.imshow("Noisy İmage",noisy_image)
+if cv2.waitKey(0)== 27:
+    cv2.destroyAllWindows()
+    plt.close()

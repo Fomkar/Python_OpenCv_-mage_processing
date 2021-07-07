@@ -1,0 +1,40 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 12:13:59 2021
+
+@author: Ömer Karagöz
+-> Morfolojik Operasyonlar - Morphology Operating System
+"""
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+#Resmi içe aktar
+image = cv2.imread("image.png")
+image = cv2.resize(image, (840,1200))
+plt.figure(),plt.imshow(image,cmap = "gray"),plt.axis("off"),plt.title("Orijinal")
+cv2.imshow("image",image)
+#Erode - Erozyon
+kernel = np.ones((3,3), dtype = np.uint8)
+result = cv2.erode(image, kernel, iterations =2)
+plt.figure(),plt.imshow(result,cmap = "gray"),plt.axis("off"),plt.title("Erozyon")
+cv2.imshow("Erode image", result)
+
+#Dilate - Genişleme
+result2 = cv2.dilate(image, kernel,iterations = 3)
+cv2.imshow("Dilote image", result2)
+
+#Açılma
+opening = cv2.morphologyEx(image.astype(np.float32), cv2.MORPH_OPEN, kernel)
+cv2.imshow("Opening", opening)
+
+#Kapatma 
+closing =  cv2.morphologyEx(image.astype(np.float32), cv2.MORPH_CLOSE, kernel)
+cv2.imshow("closing", closing)
+
+#Gradient
+gradient = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
+cv2.imshow("Gradient",gradient)
+if cv2.waitKey(0)==27:
+    cv2.destroyAllWindows()
+    plt.close()

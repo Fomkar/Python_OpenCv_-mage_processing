@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 10:57:59 2021
+
+@author: Ömer Karagöz
+-> Görüntü Eşiklme - Threshold
+"""
+import cv2
+import matplotlib.pyplot as plt
+
+img = cv2.imread("seed1.jpg")
+# img = cv2.resize(img, (1920,1280))
+grayim = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+
+cv2.imshow("Origin resim",img)
+cv2.imshow("Gray İmage",grayim)
+plt.figure()
+plt.imshow(grayim,cmap ="gray")
+cv2.destroyAllWindows()
+#eşikleme
+
+_,threshim = cv2.threshold(grayim, 60, 255, cv2.THRESH_BINARY)
+_,threshim1 = cv2.threshold(grayim, 60, 205, cv2.THRESH_BINARY_INV) 
+#threshim1 =cv2.bitwise_not(threshim1)
+thresh_img = cv2.adaptiveThreshold(grayim, 255, cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY, 11,8)
+thresh_img1 = cv2.adaptiveThreshold(grayim, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV, 11,8)
+cv2.imshow("Adaptive Gaus Thresh",thresh_img1)
+cv2.imshow("Adaptive Thresh",thresh_img)
+cv2.imshow("Thres",threshim)
+cv2.imshow("Thres2",threshim1)

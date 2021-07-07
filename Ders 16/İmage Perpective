@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 08:34:35 2021
+
+@author: Ömer Karagöz
+Topic : Two images joining or Combining ( Horizontal and Vertical)
+"""
+# Resimlerin Birleştirilmesi
+
+import cv2
+import numpy as np
+img = cv2.imread("kartA.jpg") 
+
+# cv2.imshow("Orijinal",img)
+
+#yatay
+# hor = np.hstack((img,img))
+# cv2.imshow("Horizontal",hor)
+
+# #dikey
+# ver = np.vstack((img,img))
+# cv2.imshow("Vertical",ver)
+x = 655
+y = 956
+pts1 = np.array([[93,561],[653,191],[623,1359],[1183,987]])
+a = pts1[0]
+pts2 =np.array([[450,320],[450+x,320],[450,320+y],[450+x,320+y]])
+
+# matrix = cv2.getPerspectiveTransform(pts1, pts2)
+# print(matrix)
+
+# outimg = cv2.warpPerspective(img, matrix, (1280,1600))
+#cv2.line(img, (93,561), (653,191), (0,0,255),2)
+
+cv2.putText(img, "1", (90,550), cv2.FONT_HERSHEY_COMPLEX, 2, (255,255,255))
+a=1
+for i in pts2:
+    cv2.circle(img, i, 5, (0,0,255),20)
+    cv2.putText(img, "{}.".format(i), i+5, cv2.FONT_HERSHEY_COMPLEX, 2, (255,255,255))
+    cv2.putText(img, "{}".format(a), i-50,cv2.FONT_HERSHEY_COMPLEX, 2, (255,255,255),5)
+    a+=1
+    # cv2.circle(img, i, 5, (0,0,255),20)
+    # cv2.circle(img, i, 5, (0,0,255),20)
+    # cv2.circle(img, i, 5, (0,0,255),20)
+    # cv2.circle(img, (450,320+y), 5, (0,0,255),20)
+# cv2.namedWindow("changed",cv2.WINDOW_NORMAL)
+# cv2.imshow("changed", outimg)
+cv2.namedWindow("Orijinal1",cv2.WINDOW_NORMAL)
+cv2.imshow("Orijinal1",img)
+cv2.waitKey(0)

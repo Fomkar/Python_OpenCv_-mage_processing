@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 16:06:18 2021
+
+@author: Ömer Karagöz
+-> Kenar Algılama Tespiti
+"""
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+#resmi içeri aktar
+img  = cv2.imread("image1.jpg",0)
+plt.figure(),plt.imshow(img, cmap="gray"),plt.axis("off")
+
+edges = cv2.Canny(img, 30, 255)
+plt.figure(),plt.imshow(edges, cmap="gray"),plt.axis("off")
+
+med_val = np.median(img)
+print(med_val)
+
+low = int(max(0,(1-0.330)*med_val))
+
+high = int(min(255,(1+0.330)*med_val))
+
+print("Treshold low value : {} and Treshold High value : {}.".format(low, high))
+
+edges1 = cv2.Canny(img, 121 , 242)
+plt.figure(),plt.imshow(edges1, cmap="gray"),plt.axis("off")

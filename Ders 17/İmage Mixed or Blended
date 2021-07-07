@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul  7 09:54:13 2021
+
+@author: Ömer Karagöz
+-> İmages Mixed
+"""
+# Görüntleri karıştırmak veya eklemek
+import cv2
+import matplotlib.pyplot as plt
+
+img1 = cv2.imread("img1.jpg")
+img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+img2 = cv2.imread("img2.jpg")
+img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2RGB)
+
+plt.figure()
+plt.imshow(img1)
+
+
+plt.figure()
+plt.imshow(img2)
+
+
+#Boyutları aynı olmak zorunda-Sizes of İmages have to be same 
+print(img1.shape)
+print(img2.shape)
+
+# belirli oranda karıştırma veya birleştirme işlemi
+mix_img = cv2.addWeighted(img1,0.8,img2, 0.2,0)
+plt.figure()
+plt.imshow(mix_img)

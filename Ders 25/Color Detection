@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul  8 11:01:16 2021
+
+@author: Ömer Karagöz
+-> Color Detection
+"""
+import cv2
+import numpy as np
+from collections import deque
+#Nesne merkezini depolocak veri tipi
+buffer_size = 16
+pts = deque(maxlen =buffer_size)
+
+# Mavi renk aralığı Parlaklk ->(0,255),Doygunluk ->(98,255), Ton -> (105,170)
+bluelower = (105, 98, 0)
+blueupper = (170,255,255)
+
+#capture
+
+cap = cv2.VideoCapture(0)
+
+while True:
+    success,frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    if success :
+        
+        #blur
+        blurred = cv2.GaussianBlur(frame, (11,11), 0)
+        
+        #hsv
+        hsv = cv2.cvtColor(blurred,cv2.COLOR_BGR2HSV)
+        
+        #mask
+        mask = cv2.inRange(hsv, bluelower, blueupper)
+        cv2.imshow("Mask image",mask)
+        #Maskenin gürültüleri azalt
+        mask = cv2.dilate(mask, None,2)
+        mask = cv2.erode(mask, None,2)
+        mask = cv2.dilate(mask, None,2)
+        
+        #kontur
+        (contours,_) = cv2.findContours(mask.copy(), cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+        
+        center = None
+        
+        if len(contours) > 0:
+            #en büyük kontoru al
+            c =max(contours,key=cv2.contourArea)
+            
+            #diktörgene çevir
+            rect = cv2.minAreaRect(c)
+            
+            ((x,y),(widht,height),rotation) = rect
+            s = "x: {},y: {},widht : {},height :{},".format(int(np.round(x)),int( np.round(y)),int(np.round(widht)),int(np.round(height)))
+            print(s)
+            box = cv2.boxPoints(rect)
+            box = np.int64(box)
+            
+            #moment
+            M = cv2.moments(c)
+            center = (int(M["m10"]/M["m00"]),int(M["m01"]/M["m00"]))
+            
+            #Countuour çiz
+            cv2.drawContours(frame, [box], 0  , (0,255,25),2)
+            
+            #Merkeze Nokta
+            cv2.circle(frame, center, 5, (255,0,255),-1)
+            
+            #bilgielendirme
+            cv2.putText(frame, s, (10,50), cv2.FONT_HERSHEY_PLAIN, 2 , (0,0,0),2)
+        cv2.imshow("Mask(dilate+erozyon) image",mask)
+        cv2.imshow("HSV", hsv)
+    
+        cv2.imshow("Tespit image",frame)
+    if cv2.waitKey(1)==ord("k"):
+        cv2.destroyAllWindows()
+        break

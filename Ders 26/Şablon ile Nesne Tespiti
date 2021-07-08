@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul  8 14:19:10 2021
+
+@author: Ömer Karagöz
+"""
+
+import cv2
+import matplotlib.pyplot as plt
+
+#template matching : sablon esleme
+
+img = cv2.imread("dog.jpg")
+grayim = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+print(img.shape)
+template = cv2.imread("dog_face.jpg",0)
+print(template.shape)
+w, h = template.shape
+
+methods = ['cv2.TM_CCOEFF','cv2.TM_CCOEFF_NORMED','cv2.TM_CCORR','cv2.TM_CCORR_NORMED',
+           'cv2.TM_SQDIFF','cv2.TM_SQDIFF_NORMED']
+
+for meth in methods:
+    method = eval(meth)
+    res = cv2.matchTemplate(grayim, template, method)
+    print(res.shape)
+    min_val,max_val,min_loc,max_loc = cv2.minMaxLoc(res)
+    
+    if method in [cv2.TM_SQDIFF,cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+    else:
+        top_left = max_loc
+        
+    bottom_right = (top_left[0]+w,top_left[1]+h)
+    
+    cv2.rectangle(img, top_left, bottom_right, (255,5,120),2)
+    if cv2.waitKey(20)==27:
+        cv2.destroyAllWindows()
+        break
+cv2.imshow("Eslenen Sonuc",res)
+cv2.namedWindow("Tespit Edilen Sonuc",cv2.WINDOW_NORMAL)
+cv2.imshow("Tespit Edilen Sonuc",img)
+    

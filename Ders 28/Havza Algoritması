@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul  8 16:21:26 2021
+
+@author: Ömer Karagöz
+-> Havza Algoritması
+"""
+import cv2
+import numpy as np
+
+#içe aktar
+coin = cv2.imread("coin.jpg")
+cv2.imshow("Coin Original image", coin)
+
+#bluring coin
+coin_blur = cv2.medianBlur(coin, 13)
+cv2.imshow("Blur Coin",coin_blur)
+
+#grayscale
+coin_gray = cv2.cvtColor(coin_blur, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Gray Coin", coin_gray)
+
+#binary threshold
+coin_gray = cv2.bitwise_not(coin_gray)
+ret,coin_thresh =cv2.threshold(coin_gray,40, 255, cv2.THRESH_BINARY)
+cv2.imshow("Thresh Coin", coin_thresh)
+
+#kontur
+contours,hierarch = cv2.findContours(coin_thresh, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+for i in range(len(contours)):
+    if hierarch[0][i][3] == -1:
+        cv2.drawContours(coin, contours, i, (0,255,255),10)
+cv2.imshow("Countours image", coin)

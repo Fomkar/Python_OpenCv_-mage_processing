@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jul  8 15:08:46 2021
+
+@author: Ömer Karagöz
+-> Özellik Eşitleme 
+"""
+import cv2 
+
+#ana görüntü 
+chos = cv2.imread("fis.jpg")
+cv2.imshow("Grayim",chos)
+chos_gray = cv2.cvtColor(chos, cv2.COLOR_BGR2GRAY)
+#aranacak görüntü
+cho = cv2.imread("fis3.bmp")
+cho_gray = cv2.cvtColor(cho, cv2.COLOR_BGR2GRAY)
+cv2.imshow("Grayim Ulker",cho)
+
+#orb tanımlayıcıları 
+#köşe-kenar gibi nesneye ait özellikler
+orb = cv2.ORB_create()
+
+#anhtar nokta tespiti
+kp1, des1 = orb.detectAndCompute(cho_gray,None)
+kp2, des2 = orb.detectAndCompute(chos_gray,None)
+
+#bf matcher
+bf = cv2.BFMatcher(cv2.NORM_HAMMING)
+# noktaları eşleştir
+matches = bf.match(des1, des2)
+
+#mesafeye göre sırala
+matches = sorted(matches,key = lambda x :x.distance)
+
+img_match = cv2.drawMatches(cho, kp1, chos, kp2, matches[:20],None, 2)
+
+cv2.imshow("Orb ", img_match)
+
+#sift
+sift = cv2.xfeatures2d.SIFT_create()
+
+#bf 
+bf = cv2.BFMatcher()
+
+# anahtar nokta tespiti sift ile
+kp1, des1 =sift.detectAndCompute(cho_gray,None)
+kp2, des2 =sift.detectAndCompute(chos_gray,None)
+
+matches = bf.knnMatch(des1, des2, k = 2)
+
+guzel_eslesme = []
+
+for match1, match2 in matches:
+    if match1.distance <0.75*match2.distance:
+        guzel_eslesme.append([match1])
+        
+sift_matches = cv2.drawMatchesKnn(cho, kp1, chos, kp2, guzel_eslesme, 2)
+cv2.namedWindow("Sift ",cv2.WINDOW_NORMAL)
+cv2.imshow("Sift ",sift_matches)

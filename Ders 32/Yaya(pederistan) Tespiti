@@ -1,0 +1,38 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul  9 16:19:41 2021
+
+@author: Ömer Karagöz
+->Yaya Algılama
+"""
+import cv2
+import os
+
+files = os.listdir()
+img_path_list = []
+
+for f in files:
+    if f.endswith(".jpg"):
+        img_path_list.append(f)
+    
+print(img_path_list)
+
+#hog tanımlayıcı
+hog = cv2.HOGDescriptor()
+#tanımlayıcı SVM ekle
+hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+
+for imagePath in img_path_list:
+    print(imagePath)
+    
+    image = cv2.imread(imagePath)
+    (rect,weight) = hog.detectMultiScale(image,padding =(8,8),scale= 1.2)
+    
+    for (x,y,w,h) in rect:
+        cv2.rectangle(image, (x,y), (x+w,y+h), (255,255,2550,5))        
+
+    
+    
+    cv2.imshow("Yaya :",image)
+    if cv2.waitKey(0) == ord("k"):continue
+    

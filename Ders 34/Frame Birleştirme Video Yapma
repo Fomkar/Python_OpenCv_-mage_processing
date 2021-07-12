@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul 12 11:41:08 2021
+
+@author: Ömer Karagöz
+"""
+"""
+-> Frameleri birleştirip video oluşturma 
+"""
+import os 
+import cv2
+from os.path import isfile,join
+from os import rename, listdir
+
+# for dirname in os.listdir("."):
+#     if os.path.isdir(dirname):
+#         for i, filename in enumerate(os.listdir(dirname)):
+#             os.rename(dirname + "/" + filename, dirname + "/" + str(i) + ".bmp")
+#%% Yeniden isimlendirme
+os.getcwd()
+collection = "E:/Python_Image_Processing/Ders36/images/"
+for i, filename in enumerate(os.listdir(collection)):
+    print(filename)
+    os.rename("E:/Python_Image_Processing/Ders36/images/" + filename, "E:/Python_Image_Processing/Ders36/images/" + str(i) + ".bmp")
+#%% Video Yapma
+pathIn = r"images"
+pathOut = "deneme_2.mp4"
+
+files = [f for f in os.listdir(pathIn) if isfile(join(pathIn,f))]
+
+fps = 30
+fps1 = 10
+size = (1440,1080)
+out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*"MP4V"), fps1, size, True)
+
+
+for i in files:
+    print(i)
+    filename = pathIn + "\\" + i
+    
+    img = cv2.imread(filename)
+    
+    out.write(img)
+    
+out.release()

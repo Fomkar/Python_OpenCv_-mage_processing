@@ -1,0 +1,88 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Jul 13 09:40:59 2021
+
+@author: Ömer Karagöz
+"""
+import os 
+import cv2
+from os.path import isfile,join
+from os import rename, listdir
+
+# #%% Video Yapma
+# pathIn = r"img1"
+# pathOut = "MOT17-04-SDP.mp4"
+
+# files = [f for f in os.listdir(pathIn) if isfile(join(pathIn,f))]
+
+# fps = 30
+# fps1 = 10
+# size = (1920,1080)
+# out = cv2.VideoWriter(pathOut,cv2.VideoWriter_fourcc(*"MP4V"), fps, size, True)
+
+
+# for i in files:
+#     print(i)
+#     filename = pathIn + "\\" + i
+
+#     img = cv2.imread(filename)
+
+#     out.write(img)
+
+# out.release()
+#%% birden cok nesne tespiti
+
+OPENCV_OJECT_TRACKERS = {"boosting"   :cv2.legacy.TrackerBoosting_create,
+                         "mil"        :cv2.TrackerMIL_create,
+                         "tld"        :cv2.legacy.TrackerTLD_create,
+                         "medianflow" :cv2.legacy.TrackerMedianFlow_create,
+                         "mosse"      :cv2.legacy.TrackerMOSSE_create }
+
+tracker_name = "boosting"
+tracker = OPENCV_OJECT_TRACKERS[tracker_name]()
+
+trackers = cv2.legacy.MultiTracker_create()
+
+video_path = "MOT17-13-SDP.mp4"
+cap = cv2.VideoCapture(video_path)
+
+
+
+fps = 30
+f = 0
+
+while True:
+    ret,frame = cap.read()
+    (H, W) = frame.shape[:2]
+    frame = cv2.resize(frame,(960, 540))
+    
+    (success , boxes) = trackers.uptade(frame)
+    
+    info = [("Tracker",tracker_name),
+            ("Success","Yes"if success else "No")]
+    string_text = ""
+    
+    for (i,(k,v)) in enumerate(info):
+        text = "{}: {}".format(k, v)
+        string_text = string_text + " "
+    
+    cv2.putText(frame, string_text, (10,20),cv2.FONT_HERSHEY_DUPLEX,1, (25,25,180),2)
+    
+    for box in boxes:
+        (x, y, w, h) = [int(v) for v in box]
+        cv2.rectagle(frame,  (x,y),(x+w,y+h),(0, 255, 0), 2)
+    
+    cv2.imshow("Frame",frame)
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("m"):
+        box = cv2.selectROI("Frame", frame, fromCenter=False)
+        
+        tracker = OPENCV_OJECT_TRACKERS[tracker_name]()
+
+        trackers.add(tracker, frame, box)
+    elif key == ord("k"):break
+    f = f + 1
+    
+cap.release()
+cv2.destroyAllWindows()
+    

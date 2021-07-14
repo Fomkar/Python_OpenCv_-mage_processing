@@ -1,0 +1,94 @@
+Burada önce veri seti 
+daha sonra model eğitiimi 
+ve gerçek zamanlı deneme yapılmıştır
+
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jul 14 14:38:29 2021
+
+@author: Ömer Karagöz
+"""
+
+from tensorflow.keras.models import model_from_json
+import numpy as np
+from PIL import Image
+import keyboard
+import time
+import tensorflow as tf
+import cv2
+import uuid # ekrandan kayıt alma
+from mss import mss
+from datetime import datetime
+
+mon = {"top":480 ,"left":685,"width":250,"height":140}
+sct = mss()
+
+widht = 125
+height = 50
+
+#model yükleme 
+model = model_from_json(open("model_new.json","r").read())
+
+model.load_weights("trex_weight_new.h5")
+
+#down= 0, right = 1 , up = 2 
+labels = ["Down","Right","Up"]
+
+framerate_time = time.time()
+counter = 0
+i = 0
+delay = 0.41
+
+key_down = False
+time.sleep(0.9)
+while True:
+    
+    
+    img = sct.grab(mon)
+    im = Image.frombytes("RGB", img.size, img.rgb)
+    im2 = np.array(im.convert("L").resize((widht,height)))
+    im2 = im2 / 255
+    
+    X = np.array([im2])
+    X = X.reshape(X.shape[0],widht,height,1)
+    # start_model = datetime.now()
+    r = model.predict(X)
+    # end_model = datetime.now()
+    
+    # print(end_model-start_model)
+    result = np.argmax(r)
+    
+    if result == 0: #down
+        keyboard.press(keyboard.KEY_DOWN)
+        key_down = True
+    elif result == 2: #up
+        if key_down:
+            keyboard.release(keyboard.KEY_DOWN)
+        time.sleep(delay)
+        keyboard.press(keyboard.KEY_UP)
+            
+        if i < 1500:
+            time.sleep(0.3)
+        elif 1500<i and i <5000:
+            time.sleep(0.2)
+        else:
+            time.sleep(0.17)
+        keyboard.press(keyboard.KEY_DOWN)
+        keyboard.release(keyboard.KEY_DOWN)
+      
+    counter +=1
+    
+    if(time.time() - framerate_time) > 1:
+        counter = 0
+        framerate_time = time.time()
+        if i <= 1500:
+            delay -=0.003
+        else:
+            delay -=0.005
+        if delay<0:
+            delay =0
+        
+        print("------------------")
+        print("Down: {} \nRight:{} \nUp: {}\n".format(r[0][0], r[0][1], r[0][2]))
+        
+        i +=1

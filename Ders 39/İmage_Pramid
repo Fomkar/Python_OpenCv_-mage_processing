@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jul 26 11:05:33 2021
+
+@author: Ömer Karagöz
+"""
+
+import cv2
+import matplotlib.pyplot as plt
+import time
+
+def image_pyramid(image, scale = 1.5, minSize=(224,224)):
+    
+    yield image 
+    
+    while True:
+        
+        w = int(image.shape[1]/scale)
+        image = cv2.resize(image , dsize=(w,w))
+
+        if image.shape[0] < minSize[1] or image.shape[1] < minSize[0]:
+            break
+        yield image
+
+img = cv2.imread("image.jpg")
+
+im = image_pyramid(img)
+
+for i, image in enumerate(im):
+    print(i)
+   
+    cv2.imshow("image12",image)          
+    cv2.waitKey(1000)
+    cv2.destroyAllWindows()

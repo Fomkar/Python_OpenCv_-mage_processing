@@ -1,0 +1,12 @@
+a = []    
+currentDir = os.getcwd()
+print(currentDir)
+os.chdir(currentDir)
+files = os.listdir()
+for i,f in enumerate(files):
+    if f.endswith(".bmp"):
+        #os.rename(f,str(i) + ".bmp")
+        print(f,"{}".format(i+1))
+        a.append(f)
+        if ((i)%2 == 1):
+            os.remove(str(a[i]))

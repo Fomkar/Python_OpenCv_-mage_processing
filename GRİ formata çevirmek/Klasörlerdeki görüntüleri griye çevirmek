@@ -1,0 +1,38 @@
+"""
+Created on Fri Apr 15 10:11:09 2022
+
+@author: Gitek_Micro
+"""
+
+import numpy as np
+import cv2
+#C:\Users\Gitek_Micro\Desktop\6285_yarim_eklendi -gray\dataset_for_train\Train\diskabuk
+import os
+# Görüntüleri okuma ve gösterme
+#sınıflar : diskabuk,ic,yarim,kabuklu
+ttv_list =["Test","Train","Validate"]
+sınıf_list = ["diskabuk","ic","yarim","kabuklu"]
+
+for k in (ttv_list):
+    for j in (sınıf_list):
+        print(j)
+        print(k)
+        currentDir ='C:/Users/Gitek_Micro/Desktop/6285_yarim_eklendi_gri/dataset_for_train/'+ str(k) +'/'+str(j)
+        print(currentDir)
+        os.chdir(currentDir)
+        files = os.listdir()
+        idx =0 
+        for i,f in enumerate(files):
+            if f.endswith(".bmp"):
+                print(f)
+                image = cv2.imread(f)
+                image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+                cv2.imwrite(f, image)
+            
+
+    
+for j in ttv_list:
+    for i in sınıf_list:
+      print(j)
+      print(i)
+      

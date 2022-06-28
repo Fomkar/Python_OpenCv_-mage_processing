@@ -1,0 +1,1 @@
+Burada bir çok işlem yapılmakta birlikte fındık kesme düzeltme ve boş resim silme işlemleri yapılmaktadır.

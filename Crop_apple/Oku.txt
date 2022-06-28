@@ -1,0 +1,1 @@
+Burada elmayı arka plandan ayırmaya çalışmaktayız.

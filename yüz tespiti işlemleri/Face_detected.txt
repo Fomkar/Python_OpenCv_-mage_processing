@@ -1,0 +1,1 @@
+Burada yüzü belirli bölgelere ayırma detect etme ve bir çok işlemler bulunmaktadır.

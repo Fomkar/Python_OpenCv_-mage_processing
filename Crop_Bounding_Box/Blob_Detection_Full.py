@@ -19,7 +19,7 @@ images = []
 def get_images():
     currentDir = os.getcwd()
     print(currentDir)
-    currentDir = "C:/Users\Gitek_Micro\Desktop\Karisik_Hiyar"   
+    currentDir = "C:/Users\Gitek_Micro\Desktop\Fındık Veri Seti"   
     os.chdir(currentDir)
     files = os.listdir()
     
@@ -72,7 +72,7 @@ for i in images:
         # face = image[cy-180:cy+150, cx-150:cx+130]
         crop = image[y:y+h,x:x+w]
         cv2.imshow("crop_image", crop)
-        cv2.imwrite("C:/Users\Gitek_Micro\Desktop\crop\Resim_{}.bmp".format(a), crop)
+        #cv2.imwrite("C:/Users\Gitek_Micro\Desktop\crop\Resim_{}.bmp".format(a), crop)
         a +=1;
         # cv2.imshow("Face", face)
         rect = cv2.minAreaRect(cnt)
@@ -85,5 +85,5 @@ for i in images:
         radius = int(radius)
         cv2.circle(image,center,radius,(0,0,255),2)
         cv2.imshow('Circle', image)  
-        cv2.waitKey(250)
+        cv2.waitKey(0)
         cv2.destroyAllWindows()       

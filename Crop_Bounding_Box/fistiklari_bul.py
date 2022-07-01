@@ -2,18 +2,18 @@ import numpy as np
 import cv2
 
 # The input image.
-image = cv2.imread("Basler_raL2048-48gm__23810476__20210920_144333717_1385.bmp", 1)
+image = cv2.imread("Basler_acA1440-73gc__40038474__20220325_161252565_0561.bmp", 1)
 gray_image=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 params = cv2.SimpleBlobDetector_Params()
 
 #Define thresholds
 #Can define thresholdStep. See documentation. 
-params.minThreshold = 0
+params.minThreshold = 60
 params.maxThreshold = 255
 
 # Filter by Area.
 params.filterByArea = True
-params.minArea = 500
+params.minArea = 1500
 params.maxArea = 100000
 
 # Filter by Color (black=0)
@@ -21,9 +21,7 @@ params.filterByColor = False  #Set true for cast_iron as we'll be detecting blac
 params.blobColor = 0
 
 # Filter by Circularity
-params.filterByCircularity = True
-params.minCircularity = 0.5
-params.maxCircularity = 1
+
 
 # Filter by Convexity
 params.filterByConvexity = True
@@ -35,8 +33,7 @@ params.filterByInertia = True
 params.minInertiaRatio = 0
 params.maxInertiaRatio = 1
 
-# Distance Between Blobs
-params.minDistBetweenBlobs = 1
+
 
 detector = cv2.SimpleBlobDetector_create(params)
 keypoints = detector.detect(gray_image)

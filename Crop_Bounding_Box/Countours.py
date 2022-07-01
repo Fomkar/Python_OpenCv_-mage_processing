@@ -9,24 +9,22 @@ Created on Tue Aug 10 09:02:28 2021
 
 import cv2 
 import numpy as np 
-from PIL import Image
+
 import os
 from glob import glob
 images = []
 
 def get_images():
-    #path = os.getcwd()
-    path = "D:\Opencv Alıştırmalar\Python\Blob Crop"
+    path = os.getcwd()
     print(path)
-    images_path=glob(path+"\*.tiff")
+    images_path=glob(path+"\*.jpeg")
     for i in images_path:
         images.append(i)
         print(i)
     return images
 get_images()
-
 # Let's load a simple image with 3 black squares 
-get_images()
+
 for i in images:
     image = cv2.imread(i,1) 
     image = cv2.erode(image, (5,5),iterations = 5)
